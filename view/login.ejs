@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen flex items-center justify-center bg-gray-200">
+    
+    <form action="/login" method="POST">
+        <fieldset class="border rounded-md border-black p-6 flex flex-col gap-5">
+            <legend class="flex items-center">Login <img class="w-10 h-10" src="/images/kitty.png" alt=""></legend>
+                <div class="flex flex-col">
+                    <label for="email">Email :</label>
+                    <input type="text" id="email" name="email" class="border-solid outline black rounded-md">
+                </div>
+                <div class="flex flex-col">
+                    <label for="password">Password :</label>
+                    <input type="password" id="password" name="password" class="border-solid outline black rounded-md">
+                </div>
+                <button type="submit" class="p-2 bg-green-300 rounded-md">Login</button>
+                <div>
+                    <% if (error) { %>
+                        <div style="color: red;">
+                          <p><%= error %></p>
+                        </div> 
+                      <% } %>
+                </div>
+        </fieldset>
+    </form>
+    
+</body>
+
+</html>
