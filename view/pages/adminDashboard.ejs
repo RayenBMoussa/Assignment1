@@ -10,8 +10,8 @@
 </head>
 
 <body class="vh-100 d-flex flex-column">
-    <%- include("../partials/header", { activePage }) %>
-    <% console.log("activePage:", activePage); %>
+    <%- include("../partials/header", { activePage: 'adminDashboard', homePage: 'adminDashboard' }) %>
+    <% console.log("activePage:"); %>
 
         <div class="container mt-4 flex-grow-1">
             <h1 class="mb-4 ">Users</h1>

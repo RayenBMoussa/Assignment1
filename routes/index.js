@@ -11,18 +11,14 @@ const registerSchema = Joi.object({
 })
 
 router.get('/', (req, res) => {
-  
-  res.render('register',{ activePage: "register",
-    homePage: "dashboard",error: null }); 
+  res.render('register',{ error: null }); 
 });
 
 router.post('/register',async (req, res) => {
   const { error, value } = registerSchema.validate(req.body);
   if (error) {
     return res.status(400).render('register', {
-      error: "Injection attack detected: " + error.message
-    ,activePage: "register",
-    homePage: "dashboard"});  }
+      error: "Injection attack detected: " + error.message});  }
   await registerUser(req, res);
 });
 
@@ -37,7 +33,7 @@ router.post('/login',loginUser);
 
 router.get('/dashboard', authenticated, (req, res) => {
   const catImages = ['funny1.gif', 'funny2.gif', 'funny3.gif'];
-  res.render('dashboard', { user: req.user,catImages,activePage: 'adminDashboard' , homePage: "dashboard"}); 
+  res.render('dashboard', { user: req.user,catImages}); 
 });
 
 
@@ -51,7 +47,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get("/adminDashboard", authenticated,adminOnly, getAllUsers,(req,res)=>{
-  res.render("adminDashboard",{ activePage: 'adminDashboard', homePage: "dashboard" });
+  res.render("adminDashboard");
 });
 
 router.post('/promote/:id', adminOnly, promoteUser);

@@ -1,6 +1,6 @@
 const User = require('./user');
 const bcrypt = require('bcrypt');
-
+require('dotenv').config();
 
 
 const registerUser = async (req, res) => {
@@ -64,11 +64,11 @@ const adminOnly = (req, res, next) => {
 
 async function createAdminUser() {
   const existingAdmin = await User.findOne({
-    $or: [{ username: "admin" }, { email: "admin@example.com" }]
+    $or: [{ username: "admin" }, { email: process.env.ADMIN_EMAIL }]
   });
 
   if (!existingAdmin) {
-    const hashedPassword = await bcrypt.hash("adminpass", 10);
+    const hashedPassword = await bcrypt.hash(process.env.ADMIN_PWD, 10);
     await User.create({
       username: "admin",
       password: hashedPassword,
