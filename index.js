@@ -6,12 +6,12 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-
+const {createAdminUser} = require("./public/js/userAuth");
 require('dotenv').config();
 
 
 app.use(express.static(__dirname + "/public"));
-app.set('views', path.join(__dirname, 'view'));
+app.set('views', path.join(__dirname, 'view','pages'));
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -41,7 +41,7 @@ const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
 app.get('/*\w', (req,res) => {
-	res.send("Page not found - 404");
+	res.render("page404");
 })
 
 mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}/Assignment1?retryWrites=true&appName=BCIT`).then(() => {
@@ -51,4 +51,5 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
 })
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+  createAdminUser();
 });

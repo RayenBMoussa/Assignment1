@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="vh-100 d-flex flex-column">
+    <%- include("../partials/header", { activePage }) %>
+    <% console.log("activePage:", activePage); %>
+
+        <div class="container mt-4 flex-grow-1">
+            <h1 class="mb-4 ">Users</h1>
+
+            <% users.forEach(user=> { %>
+                <div class="d-flex justify-content-between align-items-center mb-3 p-3 border rounded">
+                    <div>
+                        <%= user.name %> (<%= user.user_type %>)
+                    </div>
+                    <div class="d-flex gap-2">
+                        <form action="/promote/<%= user._id %>" method="POST" style="display:inline;">
+                            <button class="p-2 bg-danger text-white rounded border-0" type="submit">Promote to
+                                Admin</button>
+                        </form>
+                        <form action="/demote/<%= user._id %>" method="POST" style="display:inline;">
+                            <button class="p-2 bg-success text-white rounded border-0" type="submit">Demote to
+                                User</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+
+        <%- include("../partials/footer") %>
+</body>
+
+</html>
